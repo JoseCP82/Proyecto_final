@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Camara.Jose.Eventos.ClienteController">
+   <children>
+      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="52.0" prefWidth="250.0" stylesheets="@../../../css/style.css" text="GEVEM" textFill="WHITE">
+               <font>
+                  <Font name="Verdana Bold Italic" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <Separator prefHeight="19.0" prefWidth="203.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Separator>
+            <Label alignment="BOTTOM_CENTER" prefHeight="71.0" prefWidth="250.0" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <padding>
+                  <Insets bottom="15.0" top="10.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <Button fx:id="btnInicio" mnemonicParsing="false" onAction="#switchToInicio" prefHeight="60.0" prefWidth="250.0" style="-fx-font-size: 18;" text="Inicio">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnEventos" mnemonicParsing="false" onAction="#switchToEventos" prefHeight="60.0" prefWidth="250.0" style="-fx-font-size: 18;" text="Eventos">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="250.0" style="-fx-font-size: 18; -fx-background-color: #8B02BF;" text="Clientes" />
+            <Button mnemonicParsing="false" onAction="#switchToCalendario" prefHeight="60.0" prefWidth="250.0" style="-fx-font-size: 18;" text="Calendario" />
+            <Button mnemonicParsing="false" onAction="#switchToAyuda" prefHeight="60.0" prefWidth="250.0" style="-fx-font-size: 18;" text="Opciones" />
+            <Pane prefHeight="225.0" prefWidth="250.0" />
+            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" onMouseClicked="#muestraGit" prefHeight="14.0" prefWidth="250.0" text="By DeCámara Softworks" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+         </children>
+      </VBox>
+      <AnchorPane layoutX="250.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="774.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="678.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ButtonBar layoutX="479.0" layoutY="40.0" prefHeight="40.0" prefWidth="0.0" />
+          <Button fx:id="btnClose" contentDisplay="CENTER" layoutX="720.0" layoutY="13.0" minHeight="-Infinity" minWidth="40.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="40.0" prefWidth="40.0" styleClass="boton-cerrar" text="X" textAlignment="CENTER" AnchorPane.rightAnchor="14.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnRes" contentDisplay="CENTER" disable="true" layoutX="680.0" layoutY="13.0" minHeight="-Infinity" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="42.0" text="O" textAlignment="CENTER" AnchorPane.rightAnchor="54.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Button fx:id="btnMin" alignment="CENTER" contentDisplay="TOP" layoutX="635.0" layoutY="13.0" minHeight="-Infinity" minWidth="40.0" mnemonicParsing="false" onAction="#miniWindow" prefHeight="40.0" prefWidth="42.0" text="-" textAlignment="CENTER" AnchorPane.rightAnchor="95.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="250.0" layoutY="90.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E5E5E5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
+         <children>
+            <TextField fx:id="txtBuscaCliente" layoutX="75.0" layoutY="53.0" prefHeight="26.0" prefWidth="225.0" promptText="Buscar" style="-fx-background-color: #ffffff;" />
+            <Label layoutX="80.0" layoutY="369.0" text="DNI:" />
+            <Label layoutX="329.0" layoutY="367.0" text="Tipo:" />
+            <TextField fx:id="txtNombre" layoutX="80.0" layoutY="462.0" prefHeight="26.0" prefWidth="225.0" style="-fx-background-color: #ffffff;" />
+            <Label layoutX="80.0" layoutY="435.0" text="Nombre:" />
+            <ComboBox fx:id="cbxTipo" layoutX="329.0" layoutY="394.0" prefHeight="26.0" prefWidth="225.0" promptText="Seleccione..." />
+            <Label layoutX="329.0" layoutY="435.0" text="Apellidos:" />
+            <TextField fx:id="txtApellidos" layoutX="329.0" layoutY="462.0" prefHeight="26.0" prefWidth="225.0" style="-fx-background-color: #ffffff;" />
+            <Label layoutX="80.0" layoutY="571.0" text="Dirección:" />
+            <TextField fx:id="txtDni" layoutX="80.0" layoutY="396.0" prefHeight="26.0" prefWidth="225.0" style="-fx-background-color: #ffffff;" />
+            <TextField fx:id="txtTelefono" layoutX="80.0" layoutY="532.0" prefHeight="26.0" prefWidth="225.0" style="-fx-background-color: #ffffff;" />
+            <Label layoutX="80.0" layoutY="505.0" text="Teléfono:" />
+            <Label layoutX="329.0" layoutY="505.0" text="Email:" />
+            <TextField fx:id="txtEmail" layoutX="329.0" layoutY="532.0" prefHeight="26.0" prefWidth="225.0" style="-fx-background-color: #ffffff;" />
+            <TextField fx:id="txtDireccion" layoutX="80.0" layoutY="599.0" prefHeight="26.0" prefWidth="476.0" style="-fx-background-color: #ffffff;" />
+            <Button fx:id="btnGuardar" disable="true" layoutX="631.0" layoutY="441.0" mnemonicParsing="false" onAction="#insertaCliente" prefHeight="25.0" prefWidth="68.0" text="Guardar" />
+            <Button fx:id="btnActualizar" disable="true" layoutX="631.0" layoutY="488.0" mnemonicParsing="false" onAction="#actualizaCliente" text="Actualizar" />
+            <Button fx:id="btnEliminar" disable="true" layoutX="631.0" layoutY="534.0" mnemonicParsing="false" onAction="#eliminaCliente" prefHeight="25.0" prefWidth="68.0" text="Eliminar" />
+            <Button fx:id="btnBuscar" layoutX="353.0" layoutY="54.0" mnemonicParsing="false" onAction="#buscaCliente" prefHeight="25.0" prefWidth="68.0" text="Buscar" />
+            <Button fx:id="btnReset" layoutX="631.0" layoutY="580.0" mnemonicParsing="false" onAction="#reset" prefHeight="25.0" prefWidth="68.0" text="Limpiar" />
+            <TableView fx:id="tblClientes" layoutX="75.0" layoutY="103.0" prefHeight="242.0" prefWidth="690.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0">
+               <columns>
+                  <TableColumn fx:id="colTipo" maxWidth="1.7976931348623157E308" text="Tipo" />
+                  <TableColumn fx:id="colNombre" maxWidth="1.7976931348623157E308" text="Nombre" />
+                  <TableColumn fx:id="colApellidos" maxWidth="1.7976931348623157E308" text="Apellidos" />
+                  <TableColumn fx:id="colDni" maxWidth="1.7976931348623157E308" text="DNI" />
+                  <TableColumn fx:id="colDireccion" maxWidth="1.7976931348623157E308" text="Dirección" />
+                  <TableColumn fx:id="colEmail" maxWidth="1.7976931348623157E308" text="Email" />
+                  <TableColumn fx:id="colTelefono" maxWidth="1.7976931348623157E308" text="Teléfono" />
+               </columns>
+            </TableView>
+            <Button fx:id="btnNuevo" layoutX="631.0" layoutY="395.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="25.0" prefWidth="68.0" text="Nuevo" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

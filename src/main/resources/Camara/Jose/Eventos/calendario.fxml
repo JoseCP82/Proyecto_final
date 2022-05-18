@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@../../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Camara.Jose.Eventos.CalendarioController">
+   <children>
+      <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="250.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="52.0" prefWidth="250.0" stylesheets="@../../../css/style.css" text="GEVEM" textFill="WHITE">
+               <font>
+                  <Font name="Verdana Bold Italic" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <Separator prefHeight="19.0" prefWidth="203.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Separator>
+            <Label alignment="BOTTOM_CENTER" prefHeight="71.0" prefWidth="250.0" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <padding>
+                  <Insets bottom="15.0" top="10.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <Button fx:id="btnInicio" mnemonicParsing="false" onAction="#switchToInicio" prefHeight="60.0" prefWidth="250.0" style="-fx-font-size: 18;" text="Inicio">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnEventos" mnemonicParsing="false" onAction="#switchToEventos" prefHeight="60.0" prefWidth="250.0" style="-fx-font-size: 18;" text="Eventos">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#switchToClientes" prefHeight="60.0" prefWidth="250.0" style="-fx-font-size: 18;" text="Clientes" />
+            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="250.0" style="-fx-font-size: 18; -fx-background-color: #8B02BF;" text="Calendario" />
+            <Button mnemonicParsing="false" onAction="#switchToAyuda" prefHeight="60.0" prefWidth="250.0" style="-fx-font-size: 18;" text="Opciones" />
+            <Pane prefHeight="225.0" prefWidth="250.0" />
+            <Label alignment="BOTTOM_CENTER" contentDisplay="CENTER" onMouseClicked="#muestraGit" prefHeight="14.0" prefWidth="250.0" text="By DeCámara Softworks" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+         </children>
+      </VBox>
+      <AnchorPane layoutX="250.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="774.0" style="-fx-background-color: #3F2B63;" AnchorPane.bottomAnchor="678.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ButtonBar layoutX="479.0" layoutY="40.0" prefHeight="40.0" prefWidth="0.0" />
+          <Button fx:id="btnClose" contentDisplay="CENTER" layoutX="720.0" layoutY="13.0" minHeight="-Infinity" minWidth="40.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="40.0" prefWidth="40.0" styleClass="boton-cerrar" text="X" textAlignment="CENTER" AnchorPane.rightAnchor="14.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnRes" contentDisplay="CENTER" disable="true" layoutX="680.0" layoutY="13.0" minHeight="-Infinity" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="42.0" text="O" textAlignment="CENTER" AnchorPane.rightAnchor="54.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Button fx:id="btnMin" alignment="CENTER" contentDisplay="TOP" layoutX="635.0" layoutY="13.0" minHeight="-Infinity" minWidth="40.0" mnemonicParsing="false" onAction="#miniWindow" prefHeight="40.0" prefWidth="42.0" text="-" textAlignment="CENTER" AnchorPane.rightAnchor="95.0">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="250.0" layoutY="90.0" prefHeight="679.0" prefWidth="774.0" style="-fx-background-color: #E5E5E5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
+         <children>
+            <Label layoutX="46.0" layoutY="244.0" prefHeight="77.0" prefWidth="533.0" text="En construcción" textAlignment="CENTER" textFill="#3f2b63" textOverrun="CLIP" AnchorPane.rightAnchor="260.0">
+               <font>
+                  <Font name="David Libre Bold" size="72.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

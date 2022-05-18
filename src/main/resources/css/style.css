@@ -1,0 +1,17 @@
+//Hoja de estilo usada en *.fxml
+
+//Setea el color de fondo y de letra de los botones
+.button {
+	-fx-background-color: #3F2B63;
+	-fx-text-fill: white;
+}
+
+//Cambia el color de fondo de los botones al posicionarse sobre él
+.button:hover {
+	-fx-background-color: #9A77A2;
+}
+
+//Cambia el color de fondo del boton "cerrar" al posicionarse sobre él
+.boton-cerrar:hover {
+	-fx-background-color: red;
+}
