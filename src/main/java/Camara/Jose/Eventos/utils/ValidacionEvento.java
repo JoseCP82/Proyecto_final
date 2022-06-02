@@ -9,19 +9,18 @@ public class ValidacionEvento {
 	/**
 	 * Comprueba si los datos del evento corresponden con su formato
 	 */
-	public static boolean validaEvento(String fecha, String direccion, String cliente, 
+	public static boolean validaEvento(LocalDate fecha, String direccion, String cliente, 
 			String precio, String descripcion) {
 		boolean resFecha=false, resDireccion=false, resCliente=false, resPrecio=false, resDescripcion=false;
-		if(!fecha.equals("") && !direccion.equals("") && !cliente.equals("") 
+		if(fecha!=null && !direccion.equals("") && !cliente.equals("") 
 				&& !precio.equals("") && !descripcion.equals("")) {
 			resFecha=true;
 			resDireccion=true;
 			resCliente=true;
 			resPrecio=true;
 			resDescripcion=true;
-			LocalDate fechaEvento = LocalDate.parse(fecha);
 			LocalDate fechaActual = LocalDate.now();
-			if(fechaEvento.compareTo(fechaActual)<0) {
+			if(fecha.compareTo(fechaActual)<0) {
 				resFecha=false;
 				new MensajeError("Fecha obsoleta.").muestraMensaje();
 				Logging.infoLogging("Fecha obsoleta.");

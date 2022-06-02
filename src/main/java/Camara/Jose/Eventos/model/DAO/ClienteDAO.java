@@ -153,12 +153,17 @@ public class ClienteDAO implements IDAO<Cliente, Integer>{
 	@Override
 	public int update(Cliente obj) {
 		int result=0;
-		String sql = "update cliente set nombre=\""+obj.getNombre()+"\""+",apellidos=\""+obj.getApellidos()+
-				"\""+",direccion=\""+obj.getDireccion()+"\""+",telefono="+obj.getTelefono()+
-				",email=\""+obj.getEmail()+"\""+",tipo=\""+obj.getTipo()+"\"" + " where dni=\""+obj.getDni()+"\"";
+		String sql = "update cliente set nombre=? ,apellidos=?, email=?, tipo=?, direccion=? ,telefono=?  where dni=?";
 		try {
-			Statement st = conexion.createStatement();
-			st.executeUpdate(sql);
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setString(1, obj.getNombre());
+			ps.setString(2, obj.getApellidos());
+			ps.setString(3, obj.getEmail());
+			ps.setString(4, obj.getTipo());
+			ps.setString(5, obj.getDireccion());
+			ps.setInt(6, obj.getTelefono());
+			ps.setString(7, obj.getDni());
+			ps.executeUpdate();
 			result=1;
 		} catch (SQLException e) {
 			Logging.warningLogging(e+"");
@@ -175,9 +180,11 @@ public class ClienteDAO implements IDAO<Cliente, Integer>{
 	@Override
 	public int delete(Cliente obj) {
 		int result = 0;
+		String sql = "delete from cliente where dni=?";
 		try {
-			Statement st =conexion.createStatement();
-			st.executeUpdate("delete from cliente where dni=\""+obj.getDni()+"\"");
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setString(1, obj.getDni());
+			ps.executeUpdate();
 			result=1;
 		} catch (SQLException e) {
 			Logging.warningLogging(e+"");

@@ -194,7 +194,14 @@ public class Cliente {
 	 */
 	@Override
 	public String toString() {
-		return tipo + " - " + nombre + " - " + dni;
+		String result="";
+		if((tipo==null || dni==null)) {
+			result = nombre;
+		}
+		else {
+			result=tipo + " - " + nombre + " - " + dni;
+		}
+		return result;
 	}
 	
 	

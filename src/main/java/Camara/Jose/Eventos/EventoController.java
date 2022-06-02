@@ -7,8 +7,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.Collection;
 import java.util.ResourceBundle;
 import Camara.Jose.Eventos.logging.Logging;
@@ -27,7 +25,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -37,7 +38,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class EventoController implements Initializable {
 
@@ -91,7 +94,6 @@ public class EventoController implements Initializable {
 		
 		listaEventos = FXCollections.observableArrayList();
 		listaEventos.addAll(eventos);
-		
 		tblEventos.setItems(listaEventos);
 
 		colDireccion.setCellValueFactory(new PropertyValueFactory<Evento, String>("direccion"));
@@ -132,10 +134,9 @@ public class EventoController implements Initializable {
 	public void insertaEvento() {
 		String direccion = txtDireccion.getText();
 		String descripcion = txtDescripcion.getText();
-		DateTimeFormatter formato = new DateTimeFormatterBuilder().appendPattern("uuu-MM-dd").toFormatter();
 		LocalDate fecha = null;
 		if(dtpFecha.getValue()!=null) {
-			fecha = LocalDate.parse(dtpFecha.getValue().toString(), formato);
+			fecha=dtpFecha.getValue();
 		}
 		String clienteCbx=null;
 		if(cbxClientes.getValue()!=null) {
@@ -144,7 +145,7 @@ public class EventoController implements Initializable {
 		Mensaje ms = new MensajeConfirm("¿Seguro que desea guardar?");
 		ms.muestraMensaje();
 		if(((MensajeConfirm) ms).getBt() == ButtonType.OK) {
-			if(ValidacionEvento.validaEvento(String.valueOf(fecha), direccion, clienteCbx, 
+			if(ValidacionEvento.validaEvento(fecha, direccion, clienteCbx, 
 					txtPrecio.getText(), descripcion)) {
 				int idCliente = cbxClientes.getValue().getId();
 				float precio = Float.parseFloat(txtPrecio.getText());
@@ -188,7 +189,6 @@ public class EventoController implements Initializable {
 				colDescripcion.setCellValueFactory(new PropertyValueFactory<Evento, String>("descripcion"));
 				colPrecio.setCellValueFactory(new PropertyValueFactory<Evento, Float>("precio"));
 				colIdCliente.setCellValueFactory(new PropertyValueFactory<Evento, Cliente>("cliente"));
-				
 			} else {
 				new MensajeInfo("No existen eventos aún.").muestraMensaje();
 				Logging.warningLogging("No existen eventos aún.");
@@ -205,25 +205,36 @@ public class EventoController implements Initializable {
 	 */
 	@FXML
 	public void actualizaEvento() {
-		evento = new EventoDAO().get(Integer.parseInt(txtId.getText()));
-		evento.setDireccion(txtDireccion.getText());
-		DateTimeFormatter formato = new DateTimeFormatterBuilder().appendPattern("uuu-MM-dd").toFormatter();
-		evento.setFecha(LocalDate.parse(dtpFecha.getPromptText(), formato));
-		evento.setDescripcion(txtDescripcion.getText());
-		evento.setPrecio(Float.parseFloat(txtPrecio.getText()));
-		
+		String direccion = txtDireccion.getText();
+		String descripcion = txtDescripcion.getText();
+		LocalDate fecha = null;		
+		if(!dtpFecha.getPromptText().equals(" ")) {
+			fecha= LocalDate.parse(dtpFecha.getPromptText());
+		}
+		String clienteCbx=null;
+		if(cbxClientes.getValue()!=null) {
+			clienteCbx = cbxClientes.getPromptText();
+		}
 		Mensaje ms = new MensajeConfirm("¿Seguro que desea actualizar?");
 		ms.muestraMensaje();
 		if(((MensajeConfirm) ms).getBt() == ButtonType.OK) {
-			if (new EventoDAO().update(evento) == 1) {
-				new MensajeInfo("Evento actualizado con éxito.").muestraMensaje();
-				initialize(null, null);
-				Logging.infoLogging("Evento actualizado con éxito.");
-			} else {
-				new MensajeError("El evento no se pudo actualizar.").muestraMensaje();
-				Logging.warningLogging("El evento no se pudo actualizar.");
+			if(ValidacionEvento.validaEvento(fecha, direccion, clienteCbx, 
+					txtPrecio.getText(), descripcion)) {
+				evento = new EventoDAO().get(Integer.parseInt(txtId.getText()));
+				evento.setDireccion(txtDireccion.getText());
+				evento.setFecha(fecha);
+				evento.setDescripcion(txtDescripcion.getText());
+				evento.setPrecio(Float.parseFloat(txtPrecio.getText()));		
+				if (new EventoDAO().update(evento) == 1) {
+					new MensajeInfo("Evento actualizado con éxito.").muestraMensaje();
+					initialize(null, null);
+					Logging.infoLogging("Evento actualizado con éxito.");
+				} else {
+					new MensajeError("El evento no se pudo actualizar.").muestraMensaje();
+					Logging.warningLogging("El evento no se pudo actualizar.");
+				}
+				reset();
 			}
-			reset();
 		}
 	}
 	
@@ -251,6 +262,26 @@ public class EventoController implements Initializable {
 		}
 	}
 
+	/**
+	 * Muestra la vista Historial
+	 */
+	@FXML
+	public void generaHistorial() {	
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("historial.fxml"));
+			Parent root = loader.load();
+			//HistorialController hc = loader.getController();
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setScene(scene);
+			stage.showAndWait();
+		} catch (IOException e) {
+			Logging.warningLogging(e+"");
+		}
+	}
+	
 	/**
 	 * Setea a su valor por defecto los elementos de la interfaz gráfica
 	 */

@@ -129,8 +129,9 @@
             <Button fx:id="btnReset" layoutX="592.0" layoutY="555.0" mnemonicParsing="false" onAction="#reset" prefHeight="30.0" prefWidth="74.0" text="Limpiar" />
             <Button fx:id="btnNuevo" layoutX="592.0" layoutY="370.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="30.0" prefWidth="74.0" text="Nuevo" />
             <TextField fx:id="txtId" editable="false" layoutX="677.0" layoutY="35.0" prefHeight="26.0" prefWidth="30.0" visible="false" />
-            <Button fx:id="btnBuscar" layoutX="321.0" layoutY="46.0" mnemonicParsing="false" onAction="#buscaEvento" prefHeight="25.0" prefWidth="68.0" text="Buscar" />
-            <Button fx:id="btnExportar" layoutX="438.0" layoutY="46.0" mnemonicParsing="false" onAction="#exportaEventos" prefHeight="25.0" prefWidth="68.0" text="Exportar" />
+            <Button fx:id="btnBuscar" layoutX="324.0" layoutY="47.0" mnemonicParsing="false" onAction="#buscaEvento" prefHeight="25.0" prefWidth="68.0" text="Buscar" />
+            <Button fx:id="btnExportar" layoutX="443.0" layoutY="47.0" mnemonicParsing="false" onAction="#exportaEventos" prefHeight="25.0" prefWidth="68.0" text="Exportar" />
+            <Button fx:id="btnHistorial" layoutX="562.0" layoutY="47.0" mnemonicParsing="false" onAction="#generaHistorial" prefHeight="25.0" prefWidth="68.0" text="Historial" />
          </children>
       </AnchorPane>
    </children>

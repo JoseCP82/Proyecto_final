@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import Camara.Jose.Eventos.interfaces.IDAO;
 import Camara.Jose.Eventos.logging.Logging;
+import Camara.Jose.Eventos.model.DataObject.Cliente;
 import Camara.Jose.Eventos.model.DataObject.Evento;
 import Camara.Jose.Eventos.utils.Connect;
 
@@ -114,7 +115,7 @@ public class EventoDAO implements IDAO<Evento, Integer>{
 	@Override
 	public Collection<Evento> getAll() {
 		Collection<Evento> result = new ArrayList<Evento>();
-		String sql = "select * from evento";
+		String sql = "select * from evento order by fecha desc";
 		try {
 			Statement st = conexion.createStatement();
 			ResultSet rs = st.executeQuery(sql);
@@ -140,10 +141,11 @@ public class EventoDAO implements IDAO<Evento, Integer>{
 	 */
 	public Collection<Evento> getAllDate(String fecha) {
 		Collection<Evento> result = new ArrayList<Evento>();
-		String sql = "select * from evento where fecha=\""+fecha+"\"";
+		String sql = "select * from evento where fecha=?";
 		try {
-			Statement st = conexion.createStatement();
-			ResultSet rs = st.executeQuery(sql);
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setString(1, fecha);
+			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Evento aux = new Evento();
 				aux.setId(rs.getInt("id"));
@@ -160,7 +162,36 @@ public class EventoDAO implements IDAO<Evento, Integer>{
 		return result;
 	}
 	
-	
+	/**
+	 * Obtiene una colección de eventos de la base de datos filtrados por tipo de cliente
+	 * @return Colección de eventos encontrados o null si no existe
+	 */
+	public Collection<Evento> getHistorial(String tipo) {
+		Collection<Evento> result = new ArrayList<Evento>();		
+		String sql = "SELECT e.direccion, e.fecha, e.precio, c.nombre "
+				+ "FROM evento e "
+				+ "JOIN cliente c "
+				+ "ON e.idcliente=c.id AND c.tipo LIKE ? "
+				+ "ORDER BY e.fecha DESC, c.nombre";
+		try {
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setString(1, tipo);			
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Evento evento = new Evento();
+				Cliente cliente = new Cliente();				
+				evento.setDireccion(rs.getString("direccion"));
+				evento.setFecha(rs.getDate("fecha").toLocalDate());
+				evento.setPrecio(rs.getFloat("precio"));
+				cliente.setNombre(rs.getString("nombre"));
+				evento.setCliente(cliente);
+				result.add(evento);
+			}
+		} catch (SQLException e) {
+			Logging.warningLogging(e+"");
+		}
+		return result;
+	}
 	
 	/**
 	 * Actualiza los datos de un evento existente en la base de datos
@@ -170,16 +201,20 @@ public class EventoDAO implements IDAO<Evento, Integer>{
 	@Override
 	public int update(Evento obj) {		
 		int result=0;
-		String sql = "update evento set direccion=\""+obj.getDireccion()+"\""+",fecha=\""+obj.getFecha()+"\""+",descripcion=\""+obj.getDescripcion()+"\""+
-				",precio="+obj.getPrecio()+ " where id="+obj.getId();
+		String sql = "update evento set direccion=?, fecha=?, precio=?, descripcion=? where id=?";
 		try {
-			Statement st = conexion.createStatement();
-			st.executeUpdate(sql);
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setString(1, obj.getDireccion());		
+			ps.setObject(2, obj.getFecha());
+			ps.setFloat(3, obj.getPrecio());
+			ps.setString(4, obj.getDescripcion());
+			ps.setInt(5, obj.getId());
+			ps.executeUpdate();
 			result=1;
 		} catch (SQLException e) {
 			Logging.warningLogging(e+"");
 			result=0;			
-		}
+		} 
 		return result;
 	}
 
@@ -191,9 +226,11 @@ public class EventoDAO implements IDAO<Evento, Integer>{
 	@Override
 	public int delete(Evento obj) {
 		int result = 0;
+		String sql = "delete from evento where id=?";
 		try {
-			Statement st =conexion.createStatement();
-			st.executeUpdate("delete from evento where id=\""+obj.getId()+"\"");
+			PreparedStatement ps = conexion.prepareStatement(sql);
+			ps.setInt(1, obj.getId());
+			ps.executeUpdate();
 			result=1;
 		} catch (SQLException e) {
 			Logging.warningLogging(e+"");
@@ -201,5 +238,4 @@ public class EventoDAO implements IDAO<Evento, Integer>{
 		}
 		return result;
 	}
-
 }
